@@ -1,3 +1,5 @@
+using CAMS.infrastructure;
+
 namespace ClassAttendanceManagementSystem_backend;
 
 public class Program
@@ -13,6 +15,7 @@ public class Program
         builder.Services.AddOpenApi();
         builder.Services.AddSwaggerGen();
         builder.Services.AddControllers();
+        builder.Services.AddInfrastructure(builder.Configuration);
 
         var app = builder.Build();
 

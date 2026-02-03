@@ -1,0 +1,15 @@
+using CAMS.domain.ValueValidationTypes;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace ClassAttendanceManagementSystem.Persistence.Configurations;
+
+public class StudentConfiguration : IEntityTypeConfiguration<Student>
+{
+    public void Configure(EntityTypeBuilder<Student> builder)
+    {
+        builder.ToTable("Students").HasKey(s => s.Id);
+
+    }
+
+}
