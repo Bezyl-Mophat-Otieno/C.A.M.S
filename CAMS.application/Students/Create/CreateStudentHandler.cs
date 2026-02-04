@@ -25,7 +25,8 @@ public class CreateStudentHandler
             if (studentExists) return Result<StudentId>.Failure("Student already exists");
             if (course == null) return Result<StudentId>.Failure("Course not found");
             var student = Student.New(
-                FullName.From(command.FirstName, command.LastName),
+                StudentName.From(command.FirstName),
+                StudentName.From(command.LastName),
                 EmailAddress.From(command.Email),
                 course.Id,
                 command.YearOfStudy

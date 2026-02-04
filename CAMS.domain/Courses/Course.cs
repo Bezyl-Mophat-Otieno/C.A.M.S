@@ -10,11 +10,15 @@ public class Course
     public CourseCode CourseCode { get; private set; }
     public CourseDuration CourseDuration { get; private set; }
 
+    private readonly List<Student> _students = new();
+
+    public IReadOnlyCollection<Student> Students => _students.AsReadOnly(); // navigation property
+
     private Course(CourseId id, CourseName name, CourseDuration duration)
     {
         Id = id;
         CourseName = name;
-        CourseCode = CourseCode.From(name);
+        CourseCode = CourseCode.New(name);
         CourseDuration = duration;
     }
 
@@ -26,6 +30,6 @@ public class Course
     public void Rename(CourseName name)
     {
         CourseName = name;
-        CourseCode = CourseCode.From(name);
+        CourseCode = CourseCode.New(name);
     }
 }

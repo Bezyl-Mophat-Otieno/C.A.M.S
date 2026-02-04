@@ -9,11 +9,16 @@ public record CourseCode
         Value = value;
     }
 
-    public static CourseCode From(CourseName name)
+    public static CourseCode New(CourseName name)
     {
         var code = string.Concat(name.Value.Split(' ', StringSplitOptions.RemoveEmptyEntries)
             .Select((w) => char.ToUpper(w[0])));
         return new CourseCode(code);
 
+    }
+
+    public static CourseCode From(string value)
+    {
+        return new CourseCode(value);
     }
 };

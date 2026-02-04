@@ -1,23 +1,55 @@
 using CAMS.application.Abstractions.Persistence;
 using CAMS.domain.Courses;
 using CAMS.domain.ValueValidationTypes;
+using CAMS.infrastructure.Persistence;
+using CAMS.infrastructure.Persistence.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassAttendanceManagementSystem.Persistence.Repositories;
 
 public class CourseRepository : ICourseRepository
 {
-    public Task<Course> AddCourseAsync(Course course)
+    private AppDbContext _dbContext;
+
+    public CourseRepository(AppDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
+
+    }
+    public async Task AddCourseAsync(Course course)
+    {
+        try
+        {
+            await _dbContext.AddAsync(course);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            throw EfcoreExceptionTranslator.Translate(e);
+        }
     }
 
-    public Task<Course?> GetByNameAsync(CourseName courseName)
+    public async Task<Course?> GetByNameAsync(CourseName courseName)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _dbContext.Courses.FirstOrDefaultAsync(c => c.CourseName == courseName);
+        }
+        catch (Exception e)
+        {
+            throw EfcoreExceptionTranslator.Translate(e);
+        }
     }
 
-    public Task<Course?> GetCourseByIdAsync(CourseId courseId)
+    public async Task<Course?> GetCourseByIdAsync(CourseId courseId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _dbContext.Courses.FindAsync();
+        }
+        catch (Exception e)
+        {
+            throw EfcoreExceptionTranslator.Translate(e);
+        }
     }
 }

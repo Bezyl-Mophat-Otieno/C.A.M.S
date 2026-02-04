@@ -1,6 +1,6 @@
 namespace ClassAttendanceManagementSystem.Errors;
 
-public class DomainException : Exception
+public abstract class DomainException : Exception
 {
     protected DomainException(string errorMessage) : base(errorMessage)
     {
