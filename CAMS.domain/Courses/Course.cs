@@ -14,12 +14,12 @@ public class Course
 
     public IReadOnlyCollection<Student> Students => _students.AsReadOnly(); // navigation property
 
-    private Course(CourseId id, CourseName name, CourseDuration duration)
+    private Course(CourseId id, CourseName courseName, CourseDuration courseDuration)
     {
         Id = id;
-        CourseName = name;
-        CourseCode = CourseCode.New(name);
-        CourseDuration = duration;
+        CourseName = courseName;
+        CourseCode = CourseCode.New(courseName);
+        CourseDuration = courseDuration;
     }
 
     public static Course Create(CourseName name, CourseDuration duration)

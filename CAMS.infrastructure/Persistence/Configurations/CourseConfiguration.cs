@@ -10,6 +10,10 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
     public void Configure(EntityTypeBuilder<Course> builder)
     {
         builder.ToTable("Courses").HasKey(c => c.Id);
+        builder.Property(c => c.Id).HasConversion(
+            id => id.Value,
+            value => CourseId.From(value)
+            ).ValueGeneratedNever();
         builder.Property(c => c.CourseName).HasConversion(
             name => name.Value,
             value => CourseName.From(value)
